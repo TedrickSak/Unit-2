@@ -3,6 +3,8 @@ int ux, uy;
 int ax, ay;
 int vx, vy;
 float ya, yb;
+float mx, my, mv;
+float jx, jy;
 
 void setup() {
   size(600,400);
@@ -12,7 +14,13 @@ void setup() {
   ay = 200;
   vx = 5;
   vy = 5;
+  ya = -150;
   yb = 150;
+  mx = 300;
+  my = -100;
+  mv = 1;
+  jx = mouseX + 400;
+  jy = mouseY + 400;
 }
 
 
@@ -32,8 +40,8 @@ void draw() {
   ellipse(570,ya+10,5,5);
   ellipse(300,ya+110,5,5);
   ya = ya + 0.7;
-  if (ya > 300) {
-    ya = -150;
+  if (ya > 450) {
+    ya = -300;
   }
   
   //stars b
@@ -47,16 +55,16 @@ void draw() {
   ellipse(570,yb+10,5,5);
   ellipse(300,yb+110,5,5);
   yb = yb + 0.7;
-    if (yb > 300) {
-    yb = 0;
+    if (yb > 450) {
+    yb = -300;
   }
   
   
   //sun
   fill(180,50,10);
   ellipse(sx,sy,300,300);
-  sx = sx + 1;
-  sy = sy - 0.8;
+  sx = sx + 0.8;
+  sy = sy - 0.5;
   if (sy < -200) {
   sx = -100;
   sy = 500;
@@ -101,4 +109,33 @@ void draw() {
   }
 
 
+  //meteor
+  fill(242,206,22);
+  triangle(mx,my+5,mx+26,my+50,mx-26,my+50);
+  triangle(mx,my+65,mx+26,my+20,mx-26,my+20);
+  mx = mx - 0.2 * mv;
+  mv = mv * 1.05;
+  my = my + mv;
+  if (my > 300000000) {
+  my = -100;
+  mx = 300;
+  mv = 1;
+  }
+  
+  
+  //jupiter
+  fill(152,93,20);
+  circle(jx,jy,180);
+  if (mouseX > jx) {
+  jx = jx + 1;
+  }
+   if (mouseX < jx) {
+  jx = jx - 1;
+  }
+    if (mouseY > jy) {
+  jy = jy + 1;
+  }
+  if (mouseY < jy) {
+  jy = jy - 1;
+  }
 }
